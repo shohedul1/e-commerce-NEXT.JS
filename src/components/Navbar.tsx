@@ -19,7 +19,7 @@ const Navbar = () => {
            <ul className='hidden md:flex items-center gap-5 text-sm uppercase font-semibold'>
             {
               navigation.map((item)=>(
-                <Link href={item?.href}>
+                <Link href={item?.href} key={item?._id}>
                 <li>{item?.title}</li>
                 
                 </Link>
