@@ -7,7 +7,7 @@ import Link from 'next/link';
 const Fooder = () => {
   return (
     <div className='bg-[#180735] mt-10 py-10 text-zinc-300'>
-        <Container className='flex items-center justify-between'>
+        <Container className='flex items-center justify-between '>
             <Logo className='text-white' spanClassName="bg-white text-black"/>
             <ul className='flex gap-5 items-center justify-center'>
                 {navigation.map((item)=>(
