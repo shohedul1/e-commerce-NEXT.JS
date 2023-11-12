@@ -27,3 +27,22 @@ export const getPhonecases = async()=>{
     }
     return res.json();
 };
+
+export const getWatches = async()=>{
+    const res = await fetch("https://jsonserver.reactbd.com/watch",{
+        cache:"no-cache"
+    });
+    if(!res.ok){
+        throw new Error ("Failed to fetch products");
+    }
+    return res.json();
+};
+export const getAccessories = async()=>{
+    const res = await fetch("https://jsonserver.reactbd.com/accessories",{
+        cache:"no-cache"
+    });
+    if(!res.ok){
+        throw new Error ("Failed to fetch products");
+    }
+    return res.json();
+};
