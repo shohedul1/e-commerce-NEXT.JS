@@ -4,17 +4,11 @@ import Logo from './Logo';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Heart, ShoppingBag } from 'lucide-react';
+import { navigation } from '@/constants/data';
 
 const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname);
-  const navigation = [
-    { _id: 910, title: "Home", href: "/" },
-    { _id: 911, title: "Phones", href: "/phones" },
-    { _id: 912, title: "Phone Cases", href: "/phonecases" },
-    { _id: 913, title: "Watches", href: "/watches" },
-    { _id: 914, title: "Accessories", href: "/accessories" },
-  ];
+ 
   return (
     <div className='w-full h-20 border-b-[1px] border-b-zinc-500 bg-white text-zinc-600 sticky top-0 z-50 bg-white/80 backdrop-blur-2xl'>
       <div className='max-w-screen-xl mx-auto h-full flex items-center justify-between px-4 xl:px-10'>

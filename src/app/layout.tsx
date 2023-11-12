@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import { cn } from '@/lib/utils';
 import "slick-carousel/slick/slick.css";
+import Fooder from '@/components/Fooder';
 
 
 
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={cn('min-h-screen font-sans antialiased bgDesign', inter.className)}>
         <Navbar/>
         {children}
+        <Fooder/>
       </body>
     </html>
   )

@@ -10,7 +10,7 @@ interface Item {
 }
 
 const Product = ({ products }: Item) => {
-    console.log(products)
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
             {products.map((item) => (
