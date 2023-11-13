@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Heart, ShoppingBag } from 'lucide-react';
 import { navigation } from '@/constants/data';
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn } from "next-auth/react"
 
 
 const Navbar = () => {
@@ -43,28 +43,20 @@ const Navbar = () => {
             <ShoppingBag className='w-7 h-7' />
             <span className='absolute top-0 -left-1 bg-zinc-800 text-zinc-200 w-4 h-4 rounded-full text-xs flex items-center justify-center group-hover:bg-black font-semibold group-hover:text-white'>0</span>
           </Link>
-          
-              {/* <button
-               onClick={() => signIn()}
-                className='hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold'>
-                Login
-                <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500`} />
-              </button> */}
-              {session?
-              <Link href={"/profile"}
-               className='hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold'>
-                 profile
-               <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500`} />
-             </Link>:<button
-               onClick={() => signIn()}
-                className='hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold'>
-                Login
-                <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500`} />
-              </button>
-              
-            }
-             
-   
+
+          {session ?
+            <Link href={"/profile"}
+              className='hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold'>
+              profile
+              <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500`} />
+            </Link> : <button
+              onClick={() => signIn()}
+              className='hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold'>
+              Login
+              <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500`} />
+            </button>
+
+          }
         </div>
       </div>
     </div>
