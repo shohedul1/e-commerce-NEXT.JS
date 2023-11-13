@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar'
 import { cn } from '@/lib/utils';
 import "slick-carousel/slick/slick.css";
 import Fooder from '@/components/Fooder';
-
+import Layout from '@/components/Layout';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,16 +16,20 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
+   
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+
 }) {
   return (
     <html lang="en">
       <body className={cn('min-h-screen font-sans antialiased bgDesign', inter.className)}>
-        <Navbar/>
-        {children}
-        <Fooder/>
+       <Layout>
+          <Navbar />
+          {children}
+          <Fooder />
+        </Layout>
       </body>
     </html>
   )
