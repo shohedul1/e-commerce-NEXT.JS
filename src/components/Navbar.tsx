@@ -45,7 +45,7 @@ const Navbar = () => {
           </Link>
 
           {session ?
-            <Link href={"/"}
+            <Link href={"/profile"}
               className='hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold'>
               profile
               <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500`} />
