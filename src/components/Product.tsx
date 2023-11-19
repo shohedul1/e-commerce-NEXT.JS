@@ -1,12 +1,12 @@
 'use client';
 
 import Link from "next/link";
-import { ProductType } from "../../type";
+import { ProductType, StateProps } from "../../type";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import FormattedPrice from "./FormattedPrice";
-import { useDispatch } from 'react-redux'
-import { addToCart } from "@/redux/proSlice";
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart,addToFavorite } from "@/redux/proSlice";
 import toast,{Toaster} from "react-hot-toast";
 
 interface Item {
@@ -15,6 +15,12 @@ interface Item {
 
 const Product = ({ products }: Item) => {
     const dispatch = useDispatch();
+
+    const  {favoriteData } = useSelector((state: StateProps) => state.pro);
+
+    const isFavorite = (productID:any)=>{
+        return favoriteData.some((favoriteItem)=>favoriteItem._id == productID);
+    }
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
@@ -28,7 +34,17 @@ const Product = ({ products }: Item) => {
                             height={500}
                             className="w-full h-80 object-contain lg:object-cover group-hover:scale-105 duration-300"/>
                         </Link>
-                        <Heart fill="black" className="absolute top-4 right-4 text-zinc-500 w-5 h-5 hover:text-black cursor-pointer duration-200"/>
+                        <Heart 
+                        onClick={()=>{dispatch(addToFavorite(item));
+                            if(isFavorite(item?._id)){
+                                toast.error(`${item.title} removed from favorites!`);
+                            }else{
+                                toast.success(`${item.title} added to fovorites!`);
+                            }
+                        
+                        }}
+                        fill={isFavorite(item._id) ? "red" : "black"}
+                        className="absolute top-4 right-4 text-zinc-500 w-5 h-5 hover:text-black cursor-pointer duration-200"/>
                          <div className="p-4 bg-zinc-100 group-hover:bg-zinc-50 group-hover:shadow-xl duration-300">
                             <p className="group-hover:text-desingColor duration-300">{item?.title}</p>
                             <p className="font-semibold"><FormattedPrice amount={item?.price}/></p>
