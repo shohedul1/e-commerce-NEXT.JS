@@ -3,15 +3,11 @@ import { ProductType } from "../../../type";
 import Container from "@/components/Container";
 import Image from "next/image";
 import FormattedPrice from "@/components/FormattedPrice";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/proSlice";
-import toast from "react-hot-toast";
 
 type Props = {
   searchParams: { [key: string]: string | string | undefined };
 }
 const page = async ({ searchParams }: Props) => {
-  const dispatch = useDispatch();
   const products = await getProducts();
   const _idString = searchParams?._id;
   const _id = Number(_idString);
