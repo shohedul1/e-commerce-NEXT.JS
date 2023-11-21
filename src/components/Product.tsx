@@ -9,12 +9,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart,addToFavorite } from "@/redux/proSlice";
 import toast,{Toaster} from "react-hot-toast";
 
+
+
+
 interface Item {
     products: ProductType[];
 }
 
 const Product = ({ products }: Item) => {
     const dispatch = useDispatch();
+
 
     const  {favoriteData } = useSelector((state: StateProps) => state.pro);
 
@@ -49,9 +53,12 @@ const Product = ({ products }: Item) => {
                             <p className="group-hover:text-desingColor duration-300">{item?.title}</p>
                             <p className="font-semibold"><FormattedPrice amount={item?.price}/></p>
                             <div className="flex items-center justify-between text-sm mt-2">
-                                <button 
+                               <button                                 
                                 onClick={() =>{dispatch(addToCart(item)),toast.success(`${item?.title} is add to Cart!`)}}
-                                className="uppercase font-semibold hover:text-desingColor duration-300">Add to cart</button>
+                                className="uppercase font-semibold hover:text-desingColor duration-300"
+                                >
+                                    Add to cart
+                                </button>
                                 <Link href={{pathname:`/${item?._id}`,query:{_id:item?._id}}} className="uppercase font-semibold hover:text-desingColor duration-300">More Info</Link>
                             </div>
                          </div>

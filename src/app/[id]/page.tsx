@@ -3,11 +3,15 @@ import { ProductType } from "../../../type";
 import Container from "@/components/Container";
 import Image from "next/image";
 import FormattedPrice from "@/components/FormattedPrice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/proSlice";
+import toast from "react-hot-toast";
 
 type Props = {
   searchParams: { [key: string]: string | string | undefined };
 }
 const page = async ({ searchParams }: Props) => {
+  const dispatch = useDispatch();
   const products = await getProducts();
   const _idString = searchParams?._id;
   const _id = Number(_idString);
@@ -18,6 +22,7 @@ const page = async ({ searchParams }: Props) => {
   };
   const product = singleProduct(_id);
   console.log(product);
+
 
   return (
     <Container className="flex items-center flex-col md:flex-row px-4 xl:px-0">
@@ -37,7 +42,14 @@ const page = async ({ searchParams }: Props) => {
           />{" "}
           from this product.
         </p>
-        <button className="bg-desingColor/80 text-zinc-700 px-6 py-2 font-medium rounded-md hover:bg-desingColor hover:text-black cursor-pointer duration-200 hover:shadow-lg w-40 my-2">add to cart</button>
+        
+        <button 
+      
+        className="bg-desingColor/80 text-zinc-700 px-6 py-2 font-medium rounded-md hover:bg-desingColor hover:text-black cursor-pointer duration-200 hover:shadow-lg w-40 my-2"
+        >
+          add to cart
+        </button>
+
         {product?.isNew && (
           <p className="text-desingColor font-semibold">New Arrival</p>
         )}

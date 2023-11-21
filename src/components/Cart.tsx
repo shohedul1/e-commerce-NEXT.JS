@@ -10,6 +10,8 @@ import { calculatePercentage } from "@/helpers";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
 
 
 const Cart = () => {
@@ -19,6 +21,9 @@ const Cart = () => {
     const { productData } = useSelector((state: StateProps) => state.pro);
     const dispatch = useDispatch();
     const router = useRouter();
+
+    const {data:session} = useSession();
+
     const handleReset = () => {
         const confirmReset = window.confirm("Are you sure you want to rest your Cart?");
         if (confirmReset) {
@@ -32,16 +37,39 @@ const Cart = () => {
     useEffect(() => {
         let amt = 0;
         let rowAmt = 0;
-        productData.map((item:ProductType)=>{
+        productData.map((item: ProductType) => {
             amt += item.price * item.quantity;
             return;
         });
-        productData.map((item:ProductType)=>{
+        productData.map((item: ProductType) => {
             rowAmt += item?.previousPrice * item?.quantity;
         });
         setTotalAmt(amt);
         setRowPrice(rowAmt);
     }, [productData]);
+
+
+    //stripe payment
+    const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+    const handleCheckout = async ()=>{
+        const stripe = await stripePromise;
+        const response = await fetch('http://localhost:3000/api/checkout',{
+            method: 'POST',
+            headers:{'Content-Type':"application/json"},
+            body:JSON.stringify({
+                items:productData,
+                email:session?.user?.email,
+
+            }),
+        });
+
+        const data = await response.json();
+        if(response.ok){
+            stripe?.redirectToCheckout({sessionId:data.id});
+        }else{
+            throw new Error("Failed to create Stripe Payment");
+        }
+    };
 
     return (
         <>
@@ -137,20 +165,25 @@ const Cart = () => {
                             Total Items <span>{productData.length}</span>
                         </p>
                         <p className="flex items-center justify-between">
-                            Price {" "} 
+                            Price {" "}
                             <span><FormattedPrice amount={rowPrice} /></span>
                         </p>
                         <p className="flex items-center justify-between">
-                            Discount {" "} 
+                            Discount {" "}
                             <span><FormattedPrice amount={rowPrice - totalAmt} /></span>
                         </p>
                         <p className="flex items-center justify-between">
-                            Total Price {" "} 
+                            Total Price {" "}
                             <span>
-                                <FormattedPrice amount={totalAmt} className="font-semibold text-lg"/>
+                                <FormattedPrice amount={totalAmt} className="font-semibold text-lg" />
                             </span>
                         </p>
-                        <button className="bg-zinc-800 text-zinc-200 my-2 py-2 uppercase text-center rounded-md font-semibold hover:bg-black hover:text-white duration-200">Proceed to Checkout</button>
+                        <button 
+                        onClick={handleCheckout}
+                        className="bg-zinc-800 text-zinc-200 my-2 py-2 uppercase text-center rounded-md font-semibold hover:bg-black hover:text-white duration-200"
+                        >
+                            Proceed to Checkout
+                        </button>
 
                     </div>
                 </div>
