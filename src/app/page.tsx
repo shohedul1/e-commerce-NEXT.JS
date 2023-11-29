@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <main>
       <Bunner/>
-      shohidul
       <Products/>
     </main>
   )
