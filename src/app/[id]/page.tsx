@@ -59,13 +59,6 @@ const page = async ({ searchParams }: Props) => {
         </p>
         <p>{product?.description}</p>
       </div>
-      <Toaster position="bottom-right"
-    toastOptions={{
-        style: {
-            background: "#000",
-            color: "#fff",
-        }
-    }} />
     </Container>
     
   )
