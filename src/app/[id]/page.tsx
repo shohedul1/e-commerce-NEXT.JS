@@ -3,11 +3,15 @@ import { ProductType } from "../../../type";
 import Container from "@/components/Container";
 import Image from "next/image";
 import FormattedPrice from "@/components/FormattedPrice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/proSlice";
+import toast from "react-hot-toast";
 
 type Props = {
   searchParams: { [key: string]: string | string | undefined };
 }
 const page = async ({ searchParams }: Props) => {
+  const dispatch= useDispatch();
   const products = await getProducts();
   const _idString = searchParams?._id;
   const _id = Number(_idString);
@@ -40,6 +44,7 @@ const page = async ({ searchParams }: Props) => {
         </p>
         
         <button 
+        onClick={() =>{dispatch(addToCart(product)),toast.success(`${product?.title} is add to Cart!`)}}
       
         className="bg-desingColor/80 text-zinc-700 px-6 py-2 font-medium rounded-md hover:bg-desingColor hover:text-black cursor-pointer duration-200 hover:shadow-lg w-40 my-2"
         >
