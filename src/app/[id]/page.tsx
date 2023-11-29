@@ -44,7 +44,7 @@ const page = async ({ searchParams }: Props) => {
             amount={product?.previousPrice - product?.price}
             className="text-base font-semibold bg-desingColor underline underline-offset-2"
           />{" "}
-          from this product.
+          from this product..
         </p>
         
         <button 
