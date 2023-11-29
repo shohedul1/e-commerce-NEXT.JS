@@ -1,3 +1,4 @@
+"use client";
 import { getProducts } from "@/helpers";
 import { ProductType } from "../../../type";
 import Container from "@/components/Container";
@@ -5,13 +6,14 @@ import Image from "next/image";
 import FormattedPrice from "@/components/FormattedPrice";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/proSlice";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 type Props = {
   searchParams: { [key: string]: string | string | undefined };
 }
 const page = async ({ searchParams }: Props) => {
   const dispatch= useDispatch();
+
   const products = await getProducts();
   const _idString = searchParams?._id;
   const _id = Number(_idString);
@@ -60,7 +62,15 @@ const page = async ({ searchParams }: Props) => {
         </p>
         <p>{product?.description}</p>
       </div>
+      <Toaster position="bottom-right"
+    toastOptions={{
+        style: {
+            background: "#000",
+            color: "#fff",
+        }
+    }} />
     </Container>
+    
   )
 }
 
